@@ -4,6 +4,7 @@
 #Imports & Dependencies
 from splinter import Browser
 from bs4 import BeautifulSoup
+import time
 
 #Site Navigation
 executable_path = {"executable_path": "/Users/richard/Downloads/chromedriver"}
@@ -12,6 +13,7 @@ browser = Browser("chrome", **executable_path, headless=False)
 
 # Defining scrape & dictionary
 def scrape():
+    
     final_data = {}
     output = marsNews()
     final_data["mars_news"] = output[0]
@@ -28,6 +30,7 @@ def scrape():
 def marsNews():
     news_url = "https://mars.nasa.gov/news/"
     browser.visit(news_url)
+    time.sleep(5)
     html = browser.html
     soup = BeautifulSoup(html, "html.parser")
     article = soup.find("div", class_='list_text')
@@ -72,7 +75,6 @@ def marsFacts():
 
 # # Mars Hemispheres
 def marsHem():
-    import time 
     hemispheres_url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(hemispheres_url)
     html = browser.html
